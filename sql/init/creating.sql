@@ -1,20 +1,22 @@
 -- Initialization SQL script that build default bases and tables
 
+
+drop database if exists creqsys_db;
+-- Creating or replacing database
+create database creqsys_db;
+
 -- Creating user and grant him some privileges
-create or replace user 'mansys'@'%' identified by 'pass';
-grant all privileges on man_sys_db.* to 'mansys'@'%';
+create or replace user 'creqsys'@'%' identified by 'pass';
+grant all privileges on creqsys_db.* to 'creqsys'@'%';
 flush privileges;
 
-drop database if exists man_sys_db;
--- Creating or replacing database
-create database man_sys_db;
-use man_sys_db;
+use creqsys_db;
 
 drop table if exists Employees;
 drop table if exists Requests;
 drop table if exists Clients;
 
-
+set names utf8;
 -- Creating Employees table
 create table  Employees(
 	ID int not null auto_increment , -- Employee identificator
@@ -22,8 +24,18 @@ create table  Employees(
 	Surname varchar(255),
 	Phone varchar(255),
 	Email varchar(255),
-	DID int, -- Department ID
 	Position varchar(255), -- Position in linked department
+
+	primary key(ID)
+) ENGINE=INNODB; 
+
+-- Creating Departments table
+create table  Clients(
+	ID int not null auto_increment , -- Client identificator
+	Name varchar(255),
+	Surname varchar(255),
+	Phone varchar(255),
+	Email varchar(255),
 
 	primary key(ID)
 ) ENGINE=INNODB; 
@@ -41,7 +53,7 @@ create table Requests(
 	index E_ID (EID),
 	foreign key (EID)
 		references Employees(ID)
-		on delete cascade
+		on delete cascade,
 
 	index C_ID (CID),
 	foreign key (CID)
@@ -49,37 +61,29 @@ create table Requests(
 		on delete cascade
 ) ENGINE=INNODB;
 
--- Creating Departments table
-create table  Clients(
-	ID int not null auto_increment , -- Client identificator
-	Name varchar(255),
-	Surname varchar(255),
-	Phone varchar(255),
-	Email varchar(255),
-
-	primary key(ID)
-) ENGINE=INNODB; 
 
 
 -- Insert some employees and tasks
 insert into Employees 
+(Name, Surname, Phone, Email, Position)
+values
+("Владимир", "Морозов", "801885", "dau9879@mail.com", "Работник колл-центра"),
+("Мирослава", "Прохоров", "592999", "kiy5577@mail.com", "Работник колл-центра"),
+("Надежда", "Кудрявцева", "672623", "hitri8734@mail.com", "Работник пресс-службы");
+
+insert into Clients 
 (Name, Surname, Phone, Email)
 values
-("Vasya", "Pupkin", "81123123", "vasya@corp"),
-("Petya", "Kryakov", "4114122", "petya@corp"),
-("Masha", "Seltcina", "123123", "masha@corp"),
-("Lyda", "Maryana", "31312213", "lyda@corp"),
-("Ivan", "Shpakov", "981414", "ivan@corp"),
-("Gleb", "Matiyshin", "228337", "gleb228338332455@mail.ru");
-
-insert into Tasks
-(About, EID)
-values
-("Planning tasks", 1),
-("Developing routes", 3),
-("Researhing", 2),
-("Managing graduates", 5);
-
+("Артём", "Мирный", "12869736", "Artom@com"),
+("Ольга", "Маркова", "4189150", "pat4276@yopmail.com"),
+("Михаил", "Филипповов", "9528040", "xe6500@yopmail.com"),
+("Макар ", "Киселев ", "975318", "veu7465@yopmail.com"),
+("Полина ", "Калинина", "5001427", "gaun3812@yopmail.com"),
+("Дарья ", "Егорова", "4027955", "h2884@yopmail.com"),
+("Ева ", "Захарова", "5076084", "brafi6340@yopmail.com"),
+("Кирилл ", "Федотов", "3391389", "cu1870@yopmail.com"),
+("Роман ", "Савельев", "9064244", "lize7218@yopmail.com"),
+("Лев ", "Виноградов", "8837333", "jeve@yopmail.com");
 -- ---------------------------------
 -- | Strings for mechanics testing |
 -- ---------------------------------

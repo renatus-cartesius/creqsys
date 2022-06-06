@@ -3,9 +3,9 @@ var pool =
 	mariadb.createPool({
 		host: "127.0.0.1",
 		port: 3306,
-		user: "mansys",
+		user: "creqsys",
 		password: "pass",
-		database: "man_sys_db"
+		database: "creqsys_db"
 	});
 
 module.exports = Object.freeze({
