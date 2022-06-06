@@ -11,8 +11,8 @@ create database man_sys_db;
 use man_sys_db;
 
 drop table if exists Employees;
-drop table if exists Tasks;
-drop table if exists Departments;
+drop table if exists Requests;
+drop table if exists Clients;
 
 
 -- Creating Employees table
@@ -29,27 +29,36 @@ create table  Employees(
 ) ENGINE=INNODB; 
 
 -- Creating Tasks table
-create table Tasks(
-	ID int primary key not null auto_increment , -- Task identificator
+create table Requests(
+	ID int primary key not null auto_increment , -- Request identificator
 	About varchar(500),
 	EID int,
-	
+	CID int,
 
 	Creation_time datetime default CURRENT_TIMESTAMP,
-	Task_status varchar(50) default("Created"),
+	Request_status varchar(50) default("Created"),
 	
 	index E_ID (EID),
 	foreign key (EID)
 		references Employees(ID)
 		on delete cascade
+
+	index C_ID (CID),
+	foreign key (CID)
+		references Clients(ID)
+		on delete cascade
 ) ENGINE=INNODB;
 
 -- Creating Departments table
-create table Departments(
-	ID int unsigned  primary key not null auto_increment , -- Department identificator
-	Title varchar(100),
-	Size int
-) ENGINE=INNODB;
+create table  Clients(
+	ID int not null auto_increment , -- Client identificator
+	Name varchar(255),
+	Surname varchar(255),
+	Phone varchar(255),
+	Email varchar(255),
+
+	primary key(ID)
+) ENGINE=INNODB; 
 
 
 -- Insert some employees and tasks
