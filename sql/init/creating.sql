@@ -43,7 +43,7 @@ create table  Clients(
 -- Creating Tasks table
 create table Requests(
 	ID int primary key not null auto_increment , -- Request identificator
-	About varchar(500),
+	About varchar(1500),
 	EID int,
 	CID int,
 
@@ -84,6 +84,16 @@ values
 ("Кирилл ", "Федотов", "3391389", "cu1870@yopmail.com"),
 ("Роман ", "Савельев", "9064244", "lize7218@yopmail.com"),
 ("Лев ", "Виноградов", "8837333", "jeve@yopmail.com");
+
+insert into Requests
+(About, EID, CID)
+values
+("Сломался роутер. Помогите починить", 1, 1),
+("У меня кончился интернет. Как его продлить и куда кидать деньги?", 2, 5),
+("Не ловит вифи на телефоне. Это проблема в блюпуп? ", 3, 3),
+("Как скачать браузер на компьютер? Подскажите", 1, 4),
+("А сколько стоят ваши услуги?", 3, 6);
+
 -- ---------------------------------
 -- | Strings for mechanics testing |
 -- ---------------------------------

@@ -5,13 +5,13 @@ const express = require("express"),
     router = express.Router();
 
 
-router.get("/tasks", async (req, res)=>{
+router.get("/requests", async (req, res)=>{
     try {
-        console.log("[?] Giving list of all tasks");
+        console.log("[?] Giving list of all clientses requests");
         const result = await db.pool.query(`
-        select About, Task_status, Creation_time, Employees.Name, Employees.Surname 
-        from Tasks inner join Employees
-            on Tasks.EID = Employees.ID
+        select About, Request_status, Creation_time, Employees.Name, Employees.Surname 
+        from Requests inner join Employees
+            on Requests.EID = Employees.ID
         `);
         res.send(result);
     }
