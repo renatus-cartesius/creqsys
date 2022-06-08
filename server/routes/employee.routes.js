@@ -29,7 +29,6 @@ router.post("/create_employee", async (req, res)=>{
 	let surname = req.body.surname;
 	let phone = req.body.phone;
 	let email = req.body.email;
-	let did = req.body.did;
 	let position = req.body.position;
 	try{
 		const result = await db.pool.query(`insert into Employees (Name, Surname, Phone, Email, DID, Position) values (\"${name}\", \"${surname}\", \"${phone}\", \"${email}\", \"${did}\", \"${position}\")`);
