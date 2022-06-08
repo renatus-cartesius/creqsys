@@ -1,4 +1,4 @@
-// Tasks router important requiries
+// Requests router important requiries
 const express = require("express"), 
     db = require("../controllers/db"),
     bodyParser = require("body-parser"),
@@ -7,11 +7,11 @@ const express = require("express"),
 
 router.get("/requests", async (req, res)=>{
     try {
-        console.log("[?] Giving list of all clientses requests");
+        console.log("[?] Giving list of all client requests");
         const result = await db.pool.query(`
-        select About, Request_status, Creation_time, Employees.Name, Employees.Surname 
-        from Requests inner join Employees
-            on Requests.EID = Employees.ID
+        select About, Request_status, Creation_time, Clients.Name, Clients.Surname 
+        from Requests inner join Clients
+            on Requests.CID = Clients.ID
         `);
         res.send(result);
     }
@@ -20,34 +20,34 @@ router.get("/requests", async (req, res)=>{
     }
 });
 
-router.post("/create_task", async(req, res)=>{
+router.post("/create_request", async(req, res)=>{
     let about = req.body.description;
-    let eid = req.body.eid;
+    let cid = req.body.cid;
     try {
-        console.log(`[+]Adding new tasks: About: \"${about}\", Employee_ID: ${eid}`);
-        const result = await db.pool.query(`insert into Tasks (About, EID) values (\"${about}\", ${eid})`);
-        res.send({status: "Succesfull added", about, eid});
+        console.log(`[+]Adding new requests: About: \"${about}\", Client_ID: ${cid}`);cid
+        const result = await db.pool.query(`insert into Requests (About, CID) values (\"${about}\", ${cid})`);
+        res.send({status: "Succesfull added", about, cid});
     } catch (error) {
         throw error;
     }
 });
 
-router.post("/complete_task", async(req, res)=>{
-    let tid = req.body.tid;
+router.post("/close_request", async(req, res)=>{
+    let rid = req.body.rid;
     try {
-        console.log(`[-] Completing tasks with Task_ID: ${tid}`);
-        const result = await db.pool.query(`update Tasks set Task_status = "Complete" where ID = ${tid}`);
-        res.send({status: "Succesfull delete tasks", tid})
+        console.log(`[-] Closing request with Request_ID: ${rid}`);
+        const result = await db.pool.query(`update Requests set Request_status = "Closed" where ID = ${rid}`);
+        res.send({status: "Succesfull close requests", rid})
     } catch (error) {
         throw error;
     }
 });
 
 router.get("/holder_employee", async(req, res)=>{
-    let tid = req.query.tid;
+    let rid = req.query.rid;
     try{
-        console.log(`[?] Giving employee by task ID=${tid}`)
-        const task = await db.pool.query(`select * from Tasks where ID=${tid}`);
+        console.log(`[?] Giving employee by request ID=${rid}`)
+        const task = await db.pool.query(`select * from Requests where ID=${rid}`);
 	const employee = await db.pool.query(`select * from Employees where ID=${task[0].EID}`);
         res.send(employee);
 
