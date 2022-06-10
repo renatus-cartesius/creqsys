@@ -40,11 +40,12 @@ create table  Clients(
 	primary key(ID)
 ) ENGINE=INNODB; 
 
--- Creating Tasks table
+-- Creating Requests table
 create table Requests(
 	ID int primary key not null auto_increment , -- Request identificator
 	About varchar(1500),
 	EID int,
+	Reqt varchar(500),
 	CID int,
 
 	Creation_time datetime default CURRENT_TIMESTAMP,
@@ -86,13 +87,13 @@ values
 ("Лев ", "Виноградов", "8837333", "jeve@yopmail.com");
 
 insert into Requests
-(About, EID, CID)
+(About, Reqt,  EID, CID)
 values
-("Сломался роутер. Помогите починить", 1, 1),
-("У меня кончился интернет. Как его продлить и куда кидать деньги?", 2, 5),
-("Не ловит вифи на телефоне. Это проблема в блюпуп? ", 3, 3),
-("Как скачать браузер на компьютер? Подскажите", 1, 4),
-("А сколько стоят ваши услуги?", 3, 6);
+("Сломался роутер. Помогите починить", "Техническая проблема", 1, 1),
+("У меня кончился интернет. Как его продлить и куда кидать деньги?", "Оплата", 2, 5),
+("Не ловит вифи на телефоне. Это проблема в блюпуп? ", "Техническая проблема", 3, 3),
+("Как скачать браузер на компьютер? Подскажите", "Программная проблема", 1, 4),
+("А сколько стоят ваши услуги?", 3, "Оплата", 6);
 
 -- ---------------------------------
 -- | Strings for mechanics testing |
