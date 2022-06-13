@@ -9,7 +9,7 @@ router.get("/requests", async (req, res)=>{
     try {
         console.log(`IP: ${req.ip} = [?] Giving list of all client requests`);
         const result = await db.pool.query(`
-        select Requests.ID, Reqt, About, Request_status, Creation_time, Clients.Name, Clients.Surname 
+        select Requests.ID, Reqt, About, Request_status, Creation_time, Clients.Name, Clients.Surname, Clients.Phone, Clients.Email 
         from Requests inner join Clients
             on Requests.CID = Clients.ID
         `);
