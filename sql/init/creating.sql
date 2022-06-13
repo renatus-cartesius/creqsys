@@ -45,7 +45,7 @@ create table Requests(
 	ID int primary key not null auto_increment , -- Request identificator
 	About varchar(1500),
 	EID int,
-	Reqt varchar(500),
+	Reqt boolean,
 	CID int,
 
 	Creation_time datetime default CURRENT_TIMESTAMP,
