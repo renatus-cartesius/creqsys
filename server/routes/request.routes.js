@@ -9,7 +9,7 @@ router.get("/requests", async (req, res)=>{
     try {
         console.log(`IP: ${req.ip} = [?] Giving list of all client requests`);
         const result = await db.pool.query(`
-        select Requests.ID, Reqt, About, Request_status, Creation_time, Clients.Name, Clients.Surname, Clients.Phone, Clients.Email 
+        select Requests.ID, Reqt, About, Is_Closed, Creation_time, Clients.Name, Clients.Surname, Clients.Phone, Clients.Email 
         from Requests inner join Clients
             on Requests.CID = Clients.ID
         `);
@@ -37,7 +37,7 @@ router.post("/close_request", async(req, res)=>{
     let rid = req.body.rid;
     try {
         console.log(`IP: ${req.ip} = [-] Closing request with Request_ID: ${rid}`);
-        const result = await db.pool.query(`update Requests set Request_status = "Закрыт" where ID = ${rid}`);
+        const result = await db.pool.query(`update Requests set Is_Closed = true where ID = ${rid}`);
         res.send({status: "Succesfull close requests", rid})
     } catch (error) {
         throw error;

@@ -45,11 +45,11 @@ create table Requests(
 	ID int primary key not null auto_increment , -- Request identificator
 	About varchar(1500),
 	EID int,
-	Reqt boolean,
+	Reqt varchar(500),
 	CID int,
 
 	Creation_time datetime default CURRENT_TIMESTAMP,
-	Request_status varchar(50) default("Открыт"),
+	Is_Closed varchar(10) default("False"),
 	
 	index E_ID (EID),
 	foreign key (EID)
