@@ -5,7 +5,7 @@ const express = require("express");
 
 router.get("/employees", async (req, res)=>{
 	try{
-		console.log("[?] Giving list of all employees");
+		console.log(`IP: ${req.ip} = [?] Giving list of all employees`);
 		const result = await db.pool.query(`select * from Employees;`);
 		res.send(result);
 	}
@@ -16,6 +16,7 @@ router.get("/employees", async (req, res)=>{
 
 router.get("/employee", async (req, res)=>{
 	try{
+		console.log(`IP: ${req.ip} = [-] Deleting Employee with ID: ${req.body.eid}`);
 		const result = await db.pool.query(`select * from Employees where ID=${req.query.eid}`);
 		console.log("[?] Giving information about concrete Employee: ");
 		res.send(result);
@@ -31,6 +32,7 @@ router.post("/create_employee", async (req, res)=>{
 	let email = req.body.email;
 	let position = req.body.position;
 	try{
+		console.log(`IP: ${req.ip} = [+] Creating Employee with ID: ${req.body.eid}`);
 		const result = await db.pool.query(`insert into Employees (Name, Surname, Phone, Email, DID, Position) values (\"${name}\", \"${surname}\", \"${phone}\", \"${email}\", \"${did}\", \"${position}\")`);
 		res.send(result.status);
 	}catch(err){
@@ -40,7 +42,7 @@ router.post("/create_employee", async (req, res)=>{
 
 router.post("/delete_employee", async (req, res)=>{
 	try{
-		console.log(`[-] Deleting Employee with ID: ${req.body.eid}`);
+		console.log(`IP: ${req.ip} = [-] Deleting Employee with ID: ${req.body.eid}`);
 		const result = await db.pool.query(`delete from Employees where ID=\"${req.body.eid}\"`);
 		res.send(result.status);
 	}catch(err){
