@@ -10,7 +10,7 @@ router.get("/", (req, res)=>{
 
 router.get("/clients", async (req, res)=>{
     try{
-        console.log("[?] Giving list of all clients");
+        console.log(`IP: ${req.ip} = [+][?] Giving list of all clients`);
         const result = await db.pool.query(`select * from Clients;`);
         res.send(result);
     }catch(err){
