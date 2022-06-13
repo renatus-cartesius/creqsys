@@ -49,7 +49,7 @@ create table Requests(
 	CID int,
 
 	Creation_time datetime default CURRENT_TIMESTAMP,
-	Is_Closed varchar(10) default("False"),
+	Request_status varchar(10) default("False"),
 	
 	index E_ID (EID),
 	foreign key (EID)
