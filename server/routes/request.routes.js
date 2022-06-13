@@ -37,7 +37,7 @@ router.post("/close_request", async(req, res)=>{
     let rid = req.body.rid;
     try {
         console.log(`IP: ${req.ip} = [-] Closing request with Request_ID: ${rid}`);
-        const result = await db.pool.query(`update Requests set Is_Closed = true where ID = ${rid}`);
+        const result = await db.pool.query(`update Requests set Is_Closed = "True" where ID = ${rid}`);
         res.send({status: "Succesfull close requests", rid})
     } catch (error) {
         throw error;
